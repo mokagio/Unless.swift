@@ -1,9 +1,7 @@
-/// Execute the given closure `do` only if the result of the first argument
+/// Execute the given closure only if the result of the first argument
 /// is false
-func unless(_ condition: () -> Bool, do closure: @escaping () -> ()) {
-  guard condition() == false else {
-    return
-  }
-
-  closure()
+func unless(_ condition: @autoclosure () -> Bool, _ closure: () -> Void) {
+    if condition() == false {
+        closure()
+    }
 }
