@@ -5,7 +5,7 @@
 Unless.swift is a µ-framework, or rather an n-framework, that provide syntactic sugar to write code that reads like "unless this do that".
 
 ```swift
-unless({ condition }) { 
+unless(condition) { 
   doSomething()
 }
 ```
