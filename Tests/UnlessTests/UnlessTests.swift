@@ -14,10 +14,24 @@ final class UnlessTests: XCTestCase {
         XCTAssertFalse(called, "Expected closure to not run")
     }
 
+    func testItCallsTheGivenClosureIfAutoclosureConditionIsFalse() {
+        var called = false
+        unless(1 > 2) { called = true }
+        XCTAssertTrue(called, "Expected closure to run and set called to true")
+    }
+
+    func testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue() {
+        var called = false
+        unless(2 > 1) { called = true }
+        XCTAssertFalse(called, "Expected closure to not run")
+    }
+
     static var allTests : [(String, (UnlessTests) -> () throws -> Void)] {
         return [
             ("testItCallsTheGivenClosureIfConditionIsFalse", testItCallsTheGivenClosureIfConditionIsFalse),
-            ("testItDoesNotCallTheGivenClosureIfConditionIsTrue", testItDoesNotCallTheGivenClosureIfConditionIsTrue)
+            ("testItDoesNotCallTheGivenClosureIfConditionIsTrue", testItDoesNotCallTheGivenClosureIfConditionIsTrue),
+            ("testItCallsTheGivenClosureIfAutoclosureConditionIsFalse", testItCallsTheGivenClosureIfAutoclosureConditionIsFalse),
+            ("testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue", testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue)
         ]
     }
 }
