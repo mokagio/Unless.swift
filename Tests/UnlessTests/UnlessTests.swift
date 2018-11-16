@@ -1,38 +1,37 @@
 import XCTest
 @testable import Unless
 
-class UnlessTests: XCTestCase {
+final class UnlessTests: XCTestCase {
   func testItCallsTheGivenClosureIfConditionIsFalse() {
     var called = false
-    unless({ return false }, do: { called = true })
+    unless(false) { called = true }
     XCTAssertTrue(called, "Expected closure to run and set called to true")
   }
 
   func testItDoesNotCallTheGivenClosureIfConditionIsTrue() {
     var called = false
-    unless({ return true }, do: { called = true })
+    unless(true) { called = true }
     XCTAssertFalse(called, "Expected closure to not run")
   }
 
-  func testWorksWithSwiftImplicitReturn() {
+  func testItCallsTheGivenClosureIfAutoclosureConditionIsFalse() {
     var called = false
-    unless({ false }, do: { called = true })
-    XCTAssertTrue(called, "Expected closure to run")
+    unless(1 > 2) { called = true }
+    XCTAssertTrue(called, "Expected closure to run and set called to true")
   }
 
-  func testWorksWithSwiftImplicitReturnWithValue() {
+  func testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue() {
     var called = false
-    let value = false
-    unless({ value }, do: { called = true })
-    XCTAssertTrue(called, "Expected closure to run")
+    unless(2 > 1) { called = true }
+    XCTAssertFalse(called, "Expected closure to not run")
   }
 
   static var allTests : [(String, (UnlessTests) -> () throws -> Void)] {
     return [
       ("testItCallsTheGivenClosureIfConditionIsFalse", testItCallsTheGivenClosureIfConditionIsFalse),
       ("testItDoesNotCallTheGivenClosureIfConditionIsTrue", testItDoesNotCallTheGivenClosureIfConditionIsTrue),
-      ("testWorksWithSwiftImplicitReturn", testWorksWithSwiftImplicitReturn),
-      ("testWorksWithSwiftImplicitReturnWithValue", testWorksWithSwiftImplicitReturnWithValue)
+      ("testItCallsTheGivenClosureIfAutoclosureConditionIsFalse", testItCallsTheGivenClosureIfAutoclosureConditionIsFalse),
+      ("testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue", testItDoesNotCallTheGivenClosureIfAutoclosureConditionIsTrue)
     ]
   }
 }
